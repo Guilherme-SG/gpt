@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@use-case/*": ["./src/use-cases/*"],
+      "@services/*": ["./src/infrastructure/services/*"],
+      "@controllers/*": ["./src/infrastructure/controllers/*"],
+      "@modules/*": ["./src/infrastructure/modules/*"],
+      "@filters/*": ["./src/infrastructure/filters/*"],
+      "@exceptions/*": ["./src/infrastructure/exceptions/*"],
+      "@validators/*": ["./src/infrastructure/validators/*"],
+      "@entities/*": ["./src/domain/entities/*"],
+      "@mocks/*": ["./src/domain/mocks/*"]
+    }
+  }
+}
