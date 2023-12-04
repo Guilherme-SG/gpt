@@ -1,0 +1,8 @@
+FROM node:16-alpine
+
+RUN apk update && apk add curl gnupg \
+    && wget -q https://dl-ssl.google.com/linux/linux_signing_key.pub -O- | apk add --virtual .googlepubkeyproc --no-cache - \
+    && echo "http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apk/repositories \
+    && apk update \
+    && apk add google-chrome-stable --no-cache \
+    && rm -rf /var/cache/apk/*
