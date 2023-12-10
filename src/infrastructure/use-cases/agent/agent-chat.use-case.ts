@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { HeroAgentService } from "@services/gpt/agents/hero-agent.service";
 import { VillainAgentService } from "@services/gpt/agents/villain-agent.service";
 import { PromptResponse } from "@entities/prompt.dto";
-import { ChatSummarizerUseCase } from "./chat-sumarizer.use-case";
+import { ChatSummarizerUseCase } from "../chat-templates/chat-sumarizer.use-case";
 
 @Injectable()
 export class AgentChatUseCase {

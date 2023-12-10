@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ChatController } from '@controllers/gpt/chat.controller';
 import { ChatGeneratePromptUseCase } from '@use-case/chat-templates/chat-generate-prompt.use-case';
-import { ChatSummarizerUseCase } from '../use-cases/chat-sumarizer.use-case';
+import { ChatSummarizerUseCase } from '../use-cases/chat-templates/chat-sumarizer.use-case';
 import { ChatFreelanceProposalUseCase } from '@use-case/chat-templates/chat-freelance-proposal.use-case';
 import { ChatNestJSProgrammerUseCase } from '@use-case/chat-templates/chat-nestjs-programmer.use-case';
 import { ChatShellUseCase } from '@use-case/chat-templates/chat-shell.use-case';

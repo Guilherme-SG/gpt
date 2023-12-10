@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { PromptDto, PromptResponse } from '@entities/prompt.dto';
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { ChatGeneratePromptUseCase } from '@use-case/chat-templates/chat-generate-prompt.use-case';
-import { ChatSummarizerUseCase } from '../../use-cases/chat-sumarizer.use-case';
+import { ChatSummarizerUseCase } from '../../use-cases/chat-templates/chat-sumarizer.use-case';
 import { ChatNestJSProgrammerUseCase } from '@use-case/chat-templates/chat-nestjs-programmer.use-case';
 import { ChatShellUseCase } from '@use-case/chat-templates/chat-shell.use-case';
 import { ChatMidjourneyUseCase } from '@use-case/chat-templates/chat-midjourney.use-case';

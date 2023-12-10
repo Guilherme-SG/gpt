@@ -1,6 +1,6 @@
 import { PromptResponse } from "@entities/prompt.dto";
 import { Injectable } from "@nestjs/common";
-import { ChatTemplateGPTUseCase } from "./chat-templates/chat-template-gpt.use-case";
+import { ChatTemplateGPTUseCase } from "./chat-template-gpt.use-case";
 
 @Injectable()
 export class ChatSummarizerUseCase extends ChatTemplateGPTUseCase {
