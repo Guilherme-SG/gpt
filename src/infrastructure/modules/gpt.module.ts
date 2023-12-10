@@ -1,17 +1,26 @@
 import { Module } from '@nestjs/common';
-import { ChatController } from '@controllers/chat.controller';
-import { ChatFreelanceProposalService } from '@services/gpt/chat-freelance-proposal.service';
-import { ChatNestJSProgrammerService } from '@services/gpt/chat-nestjs-programmer.service';
-import { ChatShellService } from '@services/gpt/chat-shell.service';
-import { ChatGeneratePromptService } from '@services/gpt/chat-generate-prompt';
+import { ChatController } from '@controllers/gpt/chat.controller';
+import { ChatGeneratePromptUseCase } from '@use-case/chat-templates/chat-generate-prompt.use-case';
+import { ChatSummarizerUseCase } from '../use-cases/chat-sumarizer.use-case';
+import { ChatFreelanceProposalUseCase } from '@use-case/chat-templates/chat-freelance-proposal.use-case';
+import { ChatNestJSProgrammerUseCase } from '@use-case/chat-templates/chat-nestjs-programmer.use-case';
+import { ChatShellUseCase } from '@use-case/chat-templates/chat-shell.use-case';
+import { ChatMidjourneyUseCase } from '@use-case/chat-templates/chat-midjourney.use-case';
 
-@Module({    
-  controllers: [ChatController],
+@Module({
+  controllers: [
+    ChatController,
+  ],
   providers: [
-    ChatFreelanceProposalService,
-    ChatNestJSProgrammerService,
-    ChatShellService,
-    ChatGeneratePromptService,
+    ChatFreelanceProposalUseCase,
+    ChatNestJSProgrammerUseCase,
+    ChatShellUseCase,
+    ChatGeneratePromptUseCase,
+    ChatMidjourneyUseCase,
+    ChatSummarizerUseCase,
+  ],
+  exports: [
+    ChatSummarizerUseCase,
   ],
 })
-export class GTPModule {}
+export class ChatGTPModule {}

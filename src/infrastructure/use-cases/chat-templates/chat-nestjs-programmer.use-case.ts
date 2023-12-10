@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { GPTTemplateService } from './chat-template.service';
+import { ChatTemplateGPTUseCase } from './chat-template-gpt.use-case';
 
 @Injectable()
-export class ChatNestJSProgrammerService extends GPTTemplateService {
+export class ChatNestJSProgrammerUseCase extends ChatTemplateGPTUseCase {
 
     constructor(
     ) {
@@ -10,7 +10,7 @@ export class ChatNestJSProgrammerService extends GPTTemplateService {
     }
 
     setupTemplate(): void {
-        this.messages.push({
+        this.pushSystemMessage({
             role: "system",
             content: "You are a helpfull assistant in NestJS. You know all the docs about this framework."
         })

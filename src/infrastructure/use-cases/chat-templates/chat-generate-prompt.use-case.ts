@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { GPTTemplateService } from './chat-template.service';
+import { ChatTemplateGPTUseCase } from './chat-template-gpt.use-case';
 
 @Injectable()
-export class ChatGeneratePromptService extends GPTTemplateService {
+export class ChatGeneratePromptUseCase extends ChatTemplateGPTUseCase {
 
     constructor(
     ) {
@@ -10,7 +10,7 @@ export class ChatGeneratePromptService extends GPTTemplateService {
     }
 
     setupTemplate(): void {
-        this.messages.push({
+        this.pushSystemMessage({
             role: "system",
             content: `
             Você é um especialista em Criação de Prompt.

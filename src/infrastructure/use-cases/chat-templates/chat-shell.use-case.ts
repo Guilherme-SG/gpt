@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { GPTTemplateService } from './chat-template.service';
+import { ChatTemplateGPTUseCase } from './chat-template-gpt.use-case';
 
 @Injectable()
-export class ChatShellService extends GPTTemplateService {
+export class ChatShellUseCase extends ChatTemplateGPTUseCase {
 
-    constructor(
-    ) {
+    constructor() {
         super();
     }
 
     setupTemplate(): void {
-        this.messages.push({
+        this.pushSystemMessage({
             role: "system",
             content: `
                 You are a helpfull assistant in shell commands. 

@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { GPTTemplateService } from './chat-template.service';
+import { ChatTemplateGPTUseCase } from './chat-template-gpt.use-case';
 
 @Injectable()
-export class ChatFreelanceProposalService extends GPTTemplateService {
+export class ChatFreelanceProposalUseCase extends ChatTemplateGPTUseCase {
 
-    constructor(
-    ) {
-        super();
-    }
+  constructor(
+  ) {
+    super();
+  }
 
-    setupTemplate(): void {
-        this.messages.push({
-            role: "system",
-            content: `
+  setupTemplate(): void {
+    this.pushSystemMessage({
+      role: "system",
+      content: `
             Você é um especialista em Criação de Proposta de Projeto.
             Seu objetivo é me ajudar a criar o melhor proposta de projeto possível para um determinado cliente.
             
@@ -47,21 +47,21 @@ export class ChatFreelanceProposalService extends GPTTemplateService {
             Ao criar a proposta, selecione as competências que melhor se adequam ao projeto.
             Pense cuidadosamente e use sua imaginação para criar uma proposta incrível. Seja o mais criativo possível. Seja o mais detalhado possível. Seja o mais específico possível. Seja o mais conciso possível. Seja o mais persuasivo possível. Seja o m
             `
-          })
-      
-          this.messages.push({
-            role: "system",
-            content: `
+    })
+
+    this.pushSystemMessage({
+      role: "system",
+      content: `
               Use como referência as seguintes informações:
               Nome do prestador de serviços: Guilherme
               Habilidades do prestador de serviços: Criação de API, Desenvolvimento de Backend, Programação em JS, TS, C#, Criação de bancos de dados MySQL, PostgresSQL, Redis e MongoDB, Automação de Coleta de dados, Webscraping, Automação de tarefas.
               Especialidade do prestador de serviços: Backend e Webscraping
             `
-          })
-      
-          this.messages.push({
-            role: "system",
-            content: "Formate a sua resposta com HTML para que ele seja exibido igual ao ChatGPT."
-          })
-    }
+    })
+
+    this.pushSystemMessage({
+      role: "system",
+      content: "Formate a sua resposta com HTML para que ele seja exibido igual ao ChatGPT."
+    })
+  }
 }
