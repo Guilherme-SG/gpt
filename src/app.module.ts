@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ChatGTPModule } from '@modules/gpt.module';
-import { ScrapperModule } from '@modules/scrapper.module';
+import { ScraperModule } from '@modules/scraper.module';
 import { AgentGTPModule } from '@modules/agent-gpt.module';
 import { AssistantGTPModule } from '@modules/assistant-gpt.module';
 import { FileGTPModule } from '@modules/file-gpt';
@@ -19,7 +19,7 @@ import { VisionGTPModule } from '@modules/vision-gpt.module';
     FileGTPModule,
     FunctionGTPModule,
     VisionGTPModule,
-    ScrapperModule,
+    ScraperModule,
   ],
   controllers: [],
   providers: [],

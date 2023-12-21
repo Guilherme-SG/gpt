@@ -3,14 +3,14 @@ import { Controller, Post, Body, UseInterceptors, UploadedFile, UploadedFiles } 
 import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { VisionInvestAssessor } from '@use-case/vision/vision-invest-assessor.use-case';
 import { VisionStartService } from '@use-case/vision/vision-start.service.use-case';
-import { ImageToBase64Service } from '@services/image-conversor/image-to-base64';
+import { FileToBase64Service } from '@services/image-conversor/file-to-base64';
 
 @Controller("vision")
 export class VisionController {
   constructor(
     private readonly visionStartService: VisionStartService,
     private readonly visionInvestAssessor: VisionInvestAssessor,
-    private readonly imageToBase64Service: ImageToBase64Service
+    private readonly FileToBase64Service: FileToBase64Service
   ) {}
 
   @Post("/start")
@@ -26,7 +26,7 @@ export class VisionController {
   ) {
     console.log(body)
     if(file) {
-      body.imageUrl = await this.imageToBase64Service.convert(file.buffer);
+      body.imageUrl = await this.FileToBase64Service.convertToBase64DataUri(file.buffer);
     }
     
     return this.visionStartService.prompt(body);
@@ -48,7 +48,7 @@ export class VisionController {
     }
     
     if(image) {
-      body.imageUrl = await this.imageToBase64Service.convert(image[0].buffer);
+      body.imageUrl = await this.FileToBase64Service.convertToBase64DataUri(image[0].buffer);
     }
     
     return this.visionInvestAssessor.prompt(body);

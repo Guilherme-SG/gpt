@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { VisionController } from '@controllers/gpt/vision.controller';
 import { VisionStartService } from '@use-case/vision/vision-start.service.use-case';
-import { ImageToBase64Service } from '@services/image-conversor/image-to-base64';
+import { FileToBase64Service } from '@services/image-conversor/file-to-base64';
 import { PDFToBase64Service } from '@services/image-conversor/pdf-to-base64';
 import { VisionInvestAssessor } from '@use-case/vision/vision-invest-assessor.use-case';
 
@@ -12,7 +12,7 @@ import { VisionInvestAssessor } from '@use-case/vision/vision-invest-assessor.us
   providers: [
     VisionStartService,
     VisionInvestAssessor,
-    ImageToBase64Service,
+    FileToBase64Service,
     PDFToBase64Service,
   ],
 })

@@ -7,6 +7,7 @@ import { ChatNestJSProgrammerUseCase } from '@use-case/chat-templates/chat-nestj
 import { ChatShellUseCase } from '@use-case/chat-templates/chat-shell.use-case';
 import { ChatMidjourneyUseCase } from '@use-case/chat-templates/chat-midjourney.use-case';
 import { ChatFreelanceProposalUseCase } from '@use-case/chat-templates/chat-freelance-proposal.use-case';
+import { ChatBussinessUseCase } from '@use-case/chat-templates/chat-bussiness.use-case';
 
 @Controller("chat")
 export class ChatController {
@@ -17,6 +18,7 @@ export class ChatController {
     private readonly chatGeneratePromptUseCase: ChatGeneratePromptUseCase,
     private readonly chatMidjourneyUseCase: ChatMidjourneyUseCase,
     private readonly chatSummarizerUseCase: ChatSummarizerUseCase,
+    private readonly chatBussinessUseCase: ChatBussinessUseCase,
   ) { }
 
   @Post("/freelance-proposal")
@@ -69,5 +71,10 @@ export class ChatController {
   @Post("/summarize-chat")
   summarizeChat(@Body() body: Array<{ role: string; content: string }> ) {
     return this.chatSummarizerUseCase.summarize(body);
+  }
+
+  @Post("/bussiness")
+  bussiness(@Body() body: PromptDto) {
+    return this.chatBussinessUseCase.prompt(body);
   }
 }

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ImageToBase64Service } from '@services/image-conversor/image-to-base64';
+import { FileToBase64Service } from '@services/image-conversor/file-to-base64';
 import { PDFToBase64Service } from '@services/image-conversor/pdf-to-base64';
 import { FileService } from '@services/gpt/assistant/file.service';
 import { FileController } from '@controllers/file-gpt/file.controller';
@@ -9,7 +9,7 @@ import { FileController } from '@controllers/file-gpt/file.controller';
     FileController,
   ],
   providers: [
-    ImageToBase64Service,
+    FileToBase64Service,
     PDFToBase64Service,
     FileService,
   ],

@@ -46,7 +46,8 @@ export abstract class BasePromptWithToolGPTService extends BasePromptGPTService 
             }
         }
 
-        console.log(this.messages)
+        
+        console.dir(this.messages, { depth: Infinity})
         this.messages.push({ role: "assistant", content: result.content });
         return result;
     }

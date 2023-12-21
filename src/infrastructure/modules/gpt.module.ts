@@ -6,6 +6,8 @@ import { ChatFreelanceProposalUseCase } from '@use-case/chat-templates/chat-free
 import { ChatNestJSProgrammerUseCase } from '@use-case/chat-templates/chat-nestjs-programmer.use-case';
 import { ChatShellUseCase } from '@use-case/chat-templates/chat-shell.use-case';
 import { ChatMidjourneyUseCase } from '@use-case/chat-templates/chat-midjourney.use-case';
+import { AudioService } from '@services/gpt/audio/audio.service';
+import { ChatBussinessUseCase } from '@use-case/chat-templates/chat-bussiness.use-case';
 
 @Module({
   controllers: [
@@ -18,6 +20,8 @@ import { ChatMidjourneyUseCase } from '@use-case/chat-templates/chat-midjourney.
     ChatGeneratePromptUseCase,
     ChatMidjourneyUseCase,
     ChatSummarizerUseCase,
+    ChatBussinessUseCase,
+    AudioService
   ],
   exports: [
     ChatSummarizerUseCase,

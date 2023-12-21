@@ -12,15 +12,16 @@ export abstract class BasePromptGPTService extends BaseGPTService {
     }
 
     public async prompt(dto) {
-        console.log(this.messages)
-        if(this.messages.length === 0) {
+        if (this.messages.length === 0) {
             throw new NotImplementedException("You must setup the template first")
-          }
-      
-          const content = this.getContent(dto);      
-          this.messages.push({ role: "user", content })      
-          
-          return dto.stream ? this.completeChatStream() : this.completeChat();
+        }
+
+        const content = this.getContent(dto);
+        this.messages.push({ role: "user", content })
+
+
+        console.dir(this.messages, { depth: Infinity })
+        return dto.stream ? this.completeChatStream() : this.completeChat();
     }
 
     protected abstract setupTemplate(): void;
@@ -34,7 +35,7 @@ export abstract class BasePromptGPTService extends BaseGPTService {
     public resetMessages() {
         this.messages = this.systemMessages;
     }
-    
+
     public async completeChat() {
         const completion = await this.openai.chat.completions.create({
             messages: this.messages,
@@ -48,21 +49,21 @@ export abstract class BasePromptGPTService extends BaseGPTService {
             id: completion.id,
         }
 
-        console.log(this.messages)
         this.messages.push({ role: "assistant", content: result.content });
+        console.dir(this.messages, { depth: Infinity })
         return result;
     }
 
     public async *completeChatStream() {
-        const completion  = await this.openai.beta.chat.completions.stream({
+        const completion = await this.openai.beta.chat.completions.stream({
             messages: this.messages,
             model: this.model,
             max_tokens: this.maxTokens,
         });
 
-        for await (const chunk of completion ) {
+        for await (const chunk of completion) {
             yield chunk.choices[0].delta.content;
-            
+
         }
 
         yield await completion.totalUsage();

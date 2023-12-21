@@ -7,6 +7,14 @@ export abstract class VisionGPTBaseService extends BasePromptGPTService {
   constructor() {
     super();
     this.model = "gpt-4-vision-preview";
+    this.setupTemplate()
+  }
+
+  public setupTemplate(): void {
+    this.pushSystemMessage({
+      role: "system",
+      content: `Você é um analista de imagens. Seu trabalho é ver uma imagem, descreve-la e tirar dúvidas sobre ela.`
+    })
   }
 
   public prompt(dto: VisionPromptDto){
