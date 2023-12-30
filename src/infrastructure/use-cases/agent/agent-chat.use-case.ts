@@ -1,9 +1,9 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { PromptResponse } from "src/core/types/prompt.dto";
+import { PromptResponse } from "@core-types/prompt.dto";
 import { ChatSummarizerUseCase } from "../chat-templates/chat-sumarizer.use-case";
 import { BaseAgentService } from "@services/gpt/agents/base-agent.service";
-import { HERO_AGENT_SERVICE, VILLAIN_AGENT_SERVICE } from "src/core/constants/agent.constants";
-import { UseCase } from "src/core/interfaces/use-case.interface";
+import { HERO_AGENT_SERVICE, VILLAIN_AGENT_SERVICE } from "@constants/agent.constants";
+import { UseCase } from "@interfaces/use-case.interface";
 
 @Injectable()
 export class AgentChatUseCase implements UseCase {

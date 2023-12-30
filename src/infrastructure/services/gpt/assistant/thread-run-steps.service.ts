@@ -1,8 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import { BaseGPTService } from "../base/base-gpt.service";
+import OpenAI from "openai";
 
 @Injectable()
-export class ThreadRunStepsService extends BaseGPTService {
+export class ThreadRunStepsService {    
+    protected readonly openai: OpenAI = new OpenAI();
 
     list(threadId: string, threadRunId: string) {
         return this.openai.beta.threads.runs.steps.list(threadId, threadRunId);

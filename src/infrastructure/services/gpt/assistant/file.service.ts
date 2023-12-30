@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { BaseGPTService } from "../base/base-gpt.service";
 import { FileCreateParams } from "openai/resources";
+import OpenAI from "openai";
 
 @Injectable()
-export class FileService extends BaseGPTService {
+export class FileService {    
+    protected readonly openai: OpenAI = new OpenAI();
 
     list() {
         return this.openai.files.list();

@@ -1,11 +1,10 @@
 export interface IPage {
     goto(url: string, options?: any): Promise<any>;
-    // Add other methods as needed
+    evaluate(pageFunction: Function, ...args: any[]): Promise<any>;
 }
 
 export interface IElementHandle {
     $eval(selector: string, pageFunction: Function, ...args: any[]): Promise<any>;
-    // Add other methods as needed
 }
 
 export interface BrowserService {

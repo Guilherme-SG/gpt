@@ -1,18 +1,19 @@
-import { BaseGPTService } from "./base-gpt.service";
+import OpenAI from "openai";
 import { ChatCompletionMessageParam } from "openai/resources";
 import { NotImplementedException } from "@nestjs/common";
-import { PromptResponse } from "src/core/types/prompt.dto";
+import { PromptDto, PromptResponse } from "src/core/types/prompt.dto";
+import { ChatCompletionStream } from "openai/lib/ChatCompletionStream";
 
-export abstract class BasePromptGPTService extends BaseGPTService {
+export abstract class BasePromptGPTService {    
+    protected readonly openai: OpenAI = new OpenAI();    
+    protected model: string = "gpt-4-1106-preview";
+    protected maxTokens: number = 2048;
     protected messages: ChatCompletionMessageParam[] = [];
     protected systemMessages: ChatCompletionMessageParam[] = [];
+    protected readonly ignoreSetup: boolean = false;
 
-    constructor() {
-        super();
-    }
-
-    public async prompt(dto) {
-        if (this.messages.length === 0) {
+    public async prompt(dto: PromptDto) {
+        if (this.messages.length === 0 && !this.ignoreSetup) {
             throw new NotImplementedException("You must setup the template first")
         }
 
@@ -25,7 +26,10 @@ export abstract class BasePromptGPTService extends BaseGPTService {
     }
 
     protected abstract setupTemplate(): void;
-    protected abstract getContent(dto): string | Array<any>;
+
+    protected getContent(dto: PromptDto): string | Array<any> {
+        return dto.prompt
+    }
 
     public pushSystemMessage(message: ChatCompletionMessageParam) {
         this.systemMessages.push(message);
@@ -54,18 +58,15 @@ export abstract class BasePromptGPTService extends BaseGPTService {
         return result;
     }
 
-    public async *completeChatStream() {
-        const completion = await this.openai.beta.chat.completions.stream({
+    public completeChatStream() {
+        return this.openai.beta.chat.completions.stream({
             messages: this.messages,
             model: this.model,
             max_tokens: this.maxTokens,
         });
+    }
 
-        for await (const chunk of completion) {
-            yield chunk.choices[0].delta.content;
-
-        }
-
-        yield await completion.totalUsage();
+    public isResponseStreamed(response: ChatCompletionStream | PromptResponse ): response is ChatCompletionStream {
+       return response instanceof ChatCompletionStream;
     }
 }

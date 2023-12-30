@@ -52,21 +52,14 @@ export abstract class BasePromptWithToolGPTService extends BasePromptGPTService 
         return result;
     }
 
-    public async *completeChatStream() {
-        const completion  = await this.openai.beta.chat.completions.stream({
+    public completeChatStream() {
+        return this.openai.beta.chat.completions.stream({
             messages: this.messages,
             model: this.model,
             max_tokens: this.maxTokens,
             tools: this.tools,
             tool_choice: this.toolChoice,
         });
-
-        for await (const chunk of completion ) {
-            yield chunk.choices[0].delta.content;
-            
-        }
-
-        yield await completion.totalUsage();
     }
 
     private async handleToolCalls(toolCalls: any[], stream: boolean = false) {

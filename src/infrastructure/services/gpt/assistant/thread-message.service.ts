@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { BaseGPTService } from "../base/base-gpt.service";
 import { MessageListParams } from "openai/resources/beta/threads/messages/messages";
+import OpenAI from "openai";
 
 @Injectable()
-export class ThreadMessageService extends BaseGPTService {
+export class ThreadMessageService {    
+    protected readonly openai: OpenAI = new OpenAI();
 
     create(threadId: string, content: string, fileIds: string[] = []) {      
         return this.openai.beta.threads.messages.create(

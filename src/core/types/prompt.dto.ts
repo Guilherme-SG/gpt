@@ -5,10 +5,8 @@ export type PromptDto = {
     stream: boolean;
 }
 
-export type VisionPromptDto = {
-    prompt: string;
+export type VisionPromptDto = PromptDto & {
     imageUrl: string;
-    stream: boolean;
 }
 
 export type PromptResponse = {

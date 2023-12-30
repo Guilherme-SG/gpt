@@ -1,9 +1,13 @@
-import { BrowserService } from "@interfaces/browser.service.interface";
+import { BrowserService, IPage } from "@interfaces/browser.service.interface";
 import { Injectable } from "@nestjs/common";
 import { Browser, Page } from "puppeteer";
 import puppeteer from 'puppeteer-extra';
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 
+export type PuppeterPageOptions = {
+  url: string,
+  viewport?: { width: number, height: number }
+}
 
 @Injectable()
 export class PuppeteerService implements BrowserService {
@@ -22,7 +26,7 @@ export class PuppeteerService implements BrowserService {
       });
   }
 
-  async newPage(options: { url: string, viewport?: { width: number, height: number } }) {
+  async newPage(options: PuppeterPageOptions): Promise<Page> {
     const page = await this.browser.newPage();
     await page.goto(options.url);
 
@@ -38,7 +42,7 @@ export class PuppeteerService implements BrowserService {
     this.browser = null;
   }
 
-  async scrollPageToBottom(page: Page) {
+  async scrollPageToBottom(page: IPage) {
     await page.evaluate(() => {
       window.scrollTo(0, document.body.scrollHeight);
     });

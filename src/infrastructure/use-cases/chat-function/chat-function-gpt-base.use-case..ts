@@ -24,8 +24,4 @@ export class ChatFunctionGPTBaseService extends BasePromptWithToolGPTService {
             role: "system"
         })
     }
-
-    protected getContent(dto: any): string | any[] {
-        return dto.prompt;
-    }
 }

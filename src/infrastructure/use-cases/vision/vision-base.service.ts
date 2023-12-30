@@ -3,10 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { BasePromptGPTService } from '../../services/gpt/base/base-prompt-gpt.service';
 
 @Injectable()
-export abstract class VisionGPTBaseService extends BasePromptGPTService {
+export abstract class VisionGPTBaseService extends BasePromptGPTService{
+  protected model = "gpt-4-vision-preview";
+
   constructor() {
     super();
-    this.model = "gpt-4-vision-preview";
     this.setupTemplate()
   }
 
@@ -21,7 +22,7 @@ export abstract class VisionGPTBaseService extends BasePromptGPTService {
     return super.prompt(dto);
   }
 
-  getContent(dto: VisionPromptDto): Array<any> {
+  protected getContent(dto: VisionPromptDto): Array<any> {
     const content: any = [
       { type: "text", text: dto.prompt },
     ];

@@ -3,7 +3,7 @@ import { ChatTemplateGPTUseCase } from './chat-template-gpt.use-case';
 
 @Injectable()
 export class ChatShellUseCase extends ChatTemplateGPTUseCase {
-
+    protected readonly ignoreSetup: boolean = true;
     constructor() {
         super();
     }
