@@ -1,4 +1,4 @@
-import { PromptResponse } from "@entities/prompt.dto";
+import { PromptResponse } from "src/core/types/prompt.dto";
 import { Injectable } from "@nestjs/common";
 import { ChatTemplateGPTUseCase } from "./chat-template-gpt.use-case";
 

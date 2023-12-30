@@ -16,7 +16,7 @@ const players = [
 
 const player = require('play-sound')({ players })
 import * as fs from "node:fs";
-import { PromptDto, PromptResponse } from "@entities/prompt.dto";
+import { PromptDto, PromptResponse } from "src/core/types/prompt.dto";
 import { BasePromptGPTService } from "../base/base-prompt-gpt.service";
 
 @Injectable()

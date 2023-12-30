@@ -1,17 +1,17 @@
 import { CompletionUsage } from "openai/resources";
 
-export class PromptDto {
+export type PromptDto = {
     prompt: string;
     stream: boolean;
 }
 
-export class VisionPromptDto {
+export type VisionPromptDto = {
     prompt: string;
     imageUrl: string;
     stream: boolean;
 }
 
-export class PromptResponse {
+export type PromptResponse = {
     content: string;
     usage: CompletionUsage;
     id: string;

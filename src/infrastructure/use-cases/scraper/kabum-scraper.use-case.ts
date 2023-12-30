@@ -1,5 +1,6 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
-import { ScraperService } from "@services/scraper/scraper.service";
+import { BROWSER_SERVICE } from "@constants/browser.constants";
+import { BrowserService } from "@interfaces/browser.service.interface";
+import { Inject, Injectable } from "@nestjs/common";
 import { ElementHandle, Page } from "puppeteer";
 
 @Injectable()
@@ -18,15 +19,15 @@ export class KabumScraperUseCase {
     private readonly PRODUCT_LIGHTNING_OFFER_SELECTOR = "div.offerProductFooter";
     private readonly PRODUCT_PRIME_NINJA_SELECTOR = "div.primeLogoTagCard";
 
-    constructor(private readonly scraperService: ScraperService) { }
+    constructor(@Inject(BROWSER_SERVICE) private browserService: BrowserService) {}
 
     async execute() {
         try {
-            await this.scraperService.launch();
+            await this.browserService.launch();
 
             const slug = "/hardware/ssd-2-5";
 
-            const page = await this.scraperService.newPage({
+            const page = await this.browserService.newPage({
                 url: this.baseUrl + slug,
                 viewport: { width: 1920, height: 1080 },
             });
@@ -39,7 +40,7 @@ export class KabumScraperUseCase {
 
             return await this.getProductsInfo(productCards)
         } finally {
-            await this.scraperService.close();
+            await this.browserService.close();
         }
     }
 
@@ -50,7 +51,7 @@ export class KabumScraperUseCase {
 
     private async getProductsInfo(productCards: ElementHandle<HTMLDivElement>[]) {
         return await Promise.all(
-            productCards.map(productCard => this.getProductInfo(productCard))
+            productCards.map( productCard => this.getProductInfo(productCard) )
         );
     }
 

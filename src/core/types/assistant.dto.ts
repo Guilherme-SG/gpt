@@ -1,5 +1,5 @@
 // Input type for investor endpoint
-interface InvestorDto {
+export type InvestorDto = {
     content: string;
     threadId?: string;
     fileIds?: string[];

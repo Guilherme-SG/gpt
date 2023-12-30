@@ -1,7 +1,7 @@
 import { BaseGPTService } from "./base-gpt.service";
 import { ChatCompletionMessageParam } from "openai/resources";
 import { NotImplementedException } from "@nestjs/common";
-import { PromptResponse } from "@entities/prompt.dto";
+import { PromptResponse } from "src/core/types/prompt.dto";
 
 export abstract class BasePromptGPTService extends BaseGPTService {
     protected messages: ChatCompletionMessageParam[] = [];

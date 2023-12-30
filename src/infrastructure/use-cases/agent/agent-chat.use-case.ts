@@ -1,20 +1,21 @@
-import { Injectable } from "@nestjs/common";
-import { HeroAgentService } from "@services/gpt/agents/hero-agent.service";
-import { VillainAgentService } from "@services/gpt/agents/villain-agent.service";
-import { PromptResponse } from "@entities/prompt.dto";
+import { Inject, Injectable } from "@nestjs/common";
+import { PromptResponse } from "src/core/types/prompt.dto";
 import { ChatSummarizerUseCase } from "../chat-templates/chat-sumarizer.use-case";
+import { BaseAgentService } from "@services/gpt/agents/base-agent.service";
+import { HERO_AGENT_SERVICE, VILLAIN_AGENT_SERVICE } from "src/core/constants/agent.constants";
+import { UseCase } from "src/core/interfaces/use-case.interface";
 
 @Injectable()
-export class AgentChatUseCase {
+export class AgentChatUseCase implements UseCase {
   private readonly thresholdCountMessageToSummarize = 4;
 
   constructor(
-    private readonly heroAgentService: HeroAgentService,
-    private readonly villainAgentService: VillainAgentService,
+    @Inject(HERO_AGENT_SERVICE) private readonly heroAgentService: BaseAgentService,
+    @Inject(VILLAIN_AGENT_SERVICE) private readonly villainAgentService: BaseAgentService,
     private readonly chatSummarizerUseCase: ChatSummarizerUseCase,
   ) {}
 
-  async chat(options: { iterations: number; newChat?: boolean; firstMessage?: string }) {
+  async execute(options: { iterations: number; newChat?: boolean; firstMessage?: string }) {
     let { iterations, newChat, firstMessage } = options;
     const chatMessages = [];
 

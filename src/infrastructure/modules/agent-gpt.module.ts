@@ -4,6 +4,7 @@ import { HeroAgentService } from '@services/gpt/agents/hero-agent.service';
 import { AgentChatUseCase } from '../use-cases/agent/agent-chat.use-case';
 import { AgentController } from '@controllers/gpt/agent.controller';
 import { ChatGTPModule } from './gpt.module';
+import { HERO_AGENT_SERVICE, VILLAIN_AGENT_SERVICE } from 'src/core/constants/agent.constants';
 
 @Module({
   imports: [
@@ -13,9 +14,15 @@ import { ChatGTPModule } from './gpt.module';
     AgentController
   ],
   providers: [
-    VillainAgentService,
-    HeroAgentService,
-    AgentChatUseCase
+    AgentChatUseCase,
+    {
+      provide: HERO_AGENT_SERVICE,
+      useClass: HeroAgentService,
+    },
+    {
+      provide: VILLAIN_AGENT_SERVICE,
+      useClass: VillainAgentService,
+    },
   ],
 })
 export class AgentGTPModule {}

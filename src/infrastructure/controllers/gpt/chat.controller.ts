@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { PromptDto, PromptResponse } from '@entities/prompt.dto';
+import { PromptDto, PromptResponse } from 'src/core/types/prompt.dto';
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { ChatGeneratePromptUseCase } from '@use-case/chat-templates/chat-generate-prompt.use-case';
 import { ChatSummarizerUseCase } from '../../use-cases/chat-templates/chat-sumarizer.use-case';
@@ -29,27 +29,8 @@ export class ChatController {
   @Post("/programmer")
   async programmer(
     @Body() body: PromptDto,
-    @Res() res: Response
   ) {
-    const result = await this.chatNestJSProgrammerUseCase.prompt(body);
-    
-    
-    if (result instanceof PromptResponse) return result;
-
-    let content;
-    do {
-      content = await result.next()
-      console.log(typeof content.value, content)
-      switch(true) {
-        case typeof content.value === "object":
-          console.log(JSON.stringify(content.value))
-          res.write(JSON.stringify(content.value));
-          break;
-        case typeof content.value === "string":
-          res.write(content.value);
-          break;
-      }
-    } while(!content.done)
+    return this.chatNestJSProgrammerUseCase.prompt(body);
   }
 
 

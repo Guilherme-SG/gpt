@@ -1,4 +1,4 @@
-import { VisionPromptDto } from '@entities/prompt.dto';
+import { VisionPromptDto } from 'src/core/types/prompt.dto';
 import { Injectable } from '@nestjs/common';
 import { BasePromptGPTService } from '../../services/gpt/base/base-prompt-gpt.service';
 

@@ -1,6 +1,6 @@
 import { BasePromptGPTService } from "./base-prompt-gpt.service";
 import { ChatCompletionMessageParam, ChatCompletionTool, ChatCompletionToolChoiceOption } from "openai/resources";
-import { PromptResponse } from "@entities/prompt.dto";
+import { PromptResponse } from "src/core/types/prompt.dto";
 
 export abstract class BasePromptWithToolGPTService extends BasePromptGPTService {
     protected maxTokens: number = 1000;

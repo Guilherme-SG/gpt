@@ -1,7 +1,7 @@
-import { PromptDto, PromptResponse } from '@entities/prompt.dto';
+import { PromptDto, PromptResponse } from 'src/core/types/prompt.dto';
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { AgentChatUseCase } from '../../use-cases/agent/agent-chat.use-case';
-import { AgentPromptDto } from '@entities/agent-prompt.dto';
+import { AgentPromptDto } from 'src/core/types/agent-prompt.dto';
 
 @Controller("agent")
 export class AgentController {
@@ -11,7 +11,7 @@ export class AgentController {
 
   @Post("/start")
   start(@Body() body: AgentPromptDto) {
-    return this.agentChatUseCase.chat({
+    return this.agentChatUseCase.execute({
       iterations: body.iterations,
       newChat: body.newChat,
       firstMessage: body.firstMessage,

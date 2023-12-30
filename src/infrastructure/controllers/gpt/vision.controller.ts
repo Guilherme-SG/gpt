@@ -1,4 +1,4 @@
-import { VisionPromptDto } from '@entities/prompt.dto';
+import { VisionPromptDto } from 'src/core/types/prompt.dto';
 import { Controller, Post, Body, UseInterceptors, UploadedFile, UploadedFiles } from '@nestjs/common';
 import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { VisionInvestAssessor } from '@use-case/vision/vision-invest-assessor.use-case';

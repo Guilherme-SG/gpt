@@ -1,4 +1,4 @@
-import { VisionPromptDto } from '@entities/prompt.dto';
+import { VisionPromptDto } from 'src/core/types/prompt.dto';
 import { Injectable, NotImplementedException } from '@nestjs/common';
 import OpenAI from 'openai';
 

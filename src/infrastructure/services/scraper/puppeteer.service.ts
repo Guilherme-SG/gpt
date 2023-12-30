@@ -1,3 +1,4 @@
+import { BrowserService } from "@interfaces/browser.service.interface";
 import { Injectable } from "@nestjs/common";
 import { Browser, Page } from "puppeteer";
 import puppeteer from 'puppeteer-extra';
@@ -5,7 +6,7 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 
 
 @Injectable()
-export class ScraperService {
+export class PuppeteerService implements BrowserService {
   private browser: Browser;
   constructor() { }
 

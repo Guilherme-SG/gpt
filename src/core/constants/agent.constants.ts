@@ -1,0 +1,2 @@
+export const HERO_AGENT_SERVICE = Symbol('HERO_AGENT_SERVICE');
+export const VILLAIN_AGENT_SERVICE = Symbol('VILLAIN_AGENT_SERVICE');

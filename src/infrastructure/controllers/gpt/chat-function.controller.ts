@@ -1,4 +1,4 @@
-import { PromptDto, PromptResponse } from '@entities/prompt.dto';
+import { PromptDto, PromptResponse } from 'src/core/types/prompt.dto';
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { ChatFunctionRandomNumber } from '@use-case/chat-function/chat-function-randomizer.use-case';
 

@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ScraperController } from '@controllers/scraper/scraper.controller';
-import { ScraperService } from '@services/scraper/scraper.service';
 import { AliexpressScraperUseCase } from '@use-case/scraper/aliexpress-scraper.use-case';
 import { AmazonScraperUseCase } from '@use-case/scraper/amazon-scraper.use-case';
 import { KabumScraperUseCase } from '@use-case/scraper/kabum-scraper.use-case';
+import { TiktokScraperUseCase } from '@use-case/scraper/tiktok-scraper.use-case';
+import { PuppeteerService } from '@services/scraper/puppeteer.service';
+import { BROWSER_SERVICE } from '@constants/browser.constants';
 
 @Module({  
   imports: [
@@ -14,10 +16,14 @@ import { KabumScraperUseCase } from '@use-case/scraper/kabum-scraper.use-case';
   ],
   controllers: [ScraperController],
   providers: [
-    ScraperService,
+    {
+      provide: BROWSER_SERVICE,
+      useClass: PuppeteerService,    
+    },
     AliexpressScraperUseCase,
     AmazonScraperUseCase,
     KabumScraperUseCase,
+    TiktokScraperUseCase,
   ],
 })
 export class ScraperModule {}

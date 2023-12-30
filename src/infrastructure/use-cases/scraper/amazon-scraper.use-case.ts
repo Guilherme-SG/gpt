@@ -1,5 +1,6 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
-import { ScraperService } from "@services/scraper/scraper.service";
+import { BROWSER_SERVICE } from "@constants/browser.constants";
+import { BrowserService } from "@interfaces/browser.service.interface";
+import { Inject, Injectable, InternalServerErrorException } from "@nestjs/common";
 
 @Injectable()
 export class AmazonScraperUseCase {
@@ -12,15 +13,15 @@ export class AmazonScraperUseCase {
 
     private readonly REQUEST_THROTTLE_MESSAGE = "Request was throttled. Please wait a moment and refresh the page";
 
-    constructor(private readonly scraperService: ScraperService) { }
+    constructor(@Inject(BROWSER_SERVICE) private browserService: BrowserService) {}
 
     async execute() {
         try {
-            await this.scraperService.launch();
+            await this.browserService.launch();
 
             const slug = "/gp/bestsellers/ref=zg_bsms_tab_bs";
 
-            const page = await this.scraperService.newPage({
+            const page = await this.browserService.newPage({
                 url: this.baseUrl + slug,
                 viewport: { width: 1920, height: 1080 },
             });
@@ -37,7 +38,7 @@ export class AmazonScraperUseCase {
 
             return await this.getDepartments(page);
         } finally {
-            await this.scraperService.close();
+            await this.browserService.close();
         }
     }
 

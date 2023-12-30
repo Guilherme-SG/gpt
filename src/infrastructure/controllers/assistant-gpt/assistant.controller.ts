@@ -1,6 +1,7 @@
+import { InvestorDto } from '@core-types/assistant.dto';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AssistantBaseService } from '@services/gpt/assistant/assistant-base.service';
-import { AssistantInvestorUseCase } from '../../use-cases/assistant/assistant-investor.use-case';
+import { AssistantInvestorUseCase } from '@use-case/assistant/assistant-investor.use-case';
 
 @Controller("assistant")
 export class AssistantController {

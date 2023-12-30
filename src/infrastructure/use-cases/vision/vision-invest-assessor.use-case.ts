@@ -1,6 +1,6 @@
 import { Injectable, NotImplementedException } from '@nestjs/common';
 import { VisionGPTBaseService } from './vision-base.service';
-import { VisionPromptDto } from '@entities/prompt.dto';
+import { VisionPromptDto } from 'src/core/types/prompt.dto';
 import { PDFToBase64Service } from '@services/image-conversor/pdf-to-base64';
 
 @Injectable()

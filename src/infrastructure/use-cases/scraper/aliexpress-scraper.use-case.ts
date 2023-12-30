@@ -1,5 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { ScraperService } from "@services/scraper/scraper.service";
+import { BROWSER_SERVICE } from "@constants/browser.constants";
+import { BrowserService } from "@interfaces/browser.service.interface";
+import { Inject, Injectable } from "@nestjs/common";
 
 @Injectable()
 export class AliexpressScraperUseCase {
@@ -9,13 +10,13 @@ export class AliexpressScraperUseCase {
     private readonly ITEM_CURRENT_PRICE_SELECTOR = "div.U-S0j";
     private readonly ITEM_ORIGINAL_PRICE_SELECTOR = "div._1zEQq";
 
-    constructor(private readonly scraperService: ScraperService) { }
+    constructor(@Inject(BROWSER_SERVICE) private browserService: BrowserService) {}
 
     async execute() {
         try {
-            await this.scraperService.launch();
+            await this.browserService.launch();
 
-            const page = await this.scraperService.newPage({
+            const page = await this.browserService.newPage({
                 url: "https://www.aliexpress.com/p/calp-plus/index.html?spm=a2g0o.categorymp.allcategoriespc.17.f6e0z41Iz41IWz&categoryTab=computer%252C_office_%2526_education",
                 viewport: { width: 1920, height: 1080 },
             });
@@ -28,7 +29,7 @@ export class AliexpressScraperUseCase {
             const productList = []
 
             for(let i = 0; i < 10; i++) {
-            await this.scraperService.scrollPageToBottom(page);
+            await this.browserService.scrollPageToBottom(page);
 
                 const [list] = await page.$x(this.LIST_SELECTOR_XPATH);
                 console.log("$$eval")
@@ -53,7 +54,7 @@ export class AliexpressScraperUseCase {
 
             return productList;
         } finally {
-            await this.scraperService.close();
+            await this.browserService.close();
         }
     }
 }
