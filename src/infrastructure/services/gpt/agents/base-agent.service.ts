@@ -1,11 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { ChatTemplateGPTUseCase } from "../../../use-cases/chat-templates/chat-template-gpt.use-case";
+import { PromptWithToolGPTService } from "../prompt/prompt-with-tool-gpt.service";
 
 @Injectable()
-export abstract class BaseAgentService extends ChatTemplateGPTUseCase{
-    constructor() {
-        super()
-    }
+export abstract class BaseAgentService extends PromptWithToolGPTService {
 
     public countNonSystemMessages() {
         return this.messages.length -  this.systemMessages.length;

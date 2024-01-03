@@ -1,5 +1,4 @@
-import { Response } from 'express';
-import { PromptDto, PromptResponse } from 'src/core/types/prompt.dto';
+import { PromptDto } from 'src/core/types/prompt.dto';
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { ChatGeneratePromptUseCase } from '@use-case/chat-templates/chat-generate-prompt.use-case';
 import { ChatSummarizerUseCase } from '../../use-cases/chat-templates/chat-sumarizer.use-case';
@@ -12,7 +11,7 @@ import { ChatBussinessUseCase } from '@use-case/chat-templates/chat-bussiness.us
 @Controller("chat")
 export class ChatController {
   constructor(
-    private readonly chatFreelanceProposalUseCasee: ChatFreelanceProposalUseCase,
+    private readonly chatFreelanceProposalUseCase: ChatFreelanceProposalUseCase,
     private readonly chatNestJSProgrammerUseCase: ChatNestJSProgrammerUseCase,
     private readonly chatShellUseCase: ChatShellUseCase,
     private readonly chatGeneratePromptUseCase: ChatGeneratePromptUseCase,
@@ -23,39 +22,39 @@ export class ChatController {
 
   @Post("/freelance-proposal")
   freelancerProposall(@Body() body: PromptDto) {
-    return this.chatFreelanceProposalUseCasee.prompt(body);
+    return this.chatFreelanceProposalUseCase.execute(body);
   }
 
   @Post("/programmer")
   async programmer(
     @Body() body: PromptDto,
   ) {
-    return this.chatNestJSProgrammerUseCase.prompt(body);
+    return this.chatNestJSProgrammerUseCase.execute(body);
   }
 
 
   @Post("/shell")
   shell(@Body() body: PromptDto) {
-    return this.chatShellUseCase.prompt(body);
+    return this.chatShellUseCase.execute(body);
   }
 
   @Post("/generate-prompt")
   generatePrompt(@Body() body: PromptDto) {
-    return this.chatGeneratePromptUseCase.prompt(body);
+    return this.chatGeneratePromptUseCase.execute(body);
   }
 
   @Post("/midjourney")
   midjourney(@Body() body: PromptDto) {
-    return this.chatMidjourneyUseCase.prompt(body);
+    return this.chatMidjourneyUseCase.execute(body);
   }
 
   @Post("/summarize-chat")
   summarizeChat(@Body() body: Array<{ role: string; content: string }> ) {
-    return this.chatSummarizerUseCase.summarize(body);
+    return this.chatSummarizerUseCase.execute(body);
   }
 
   @Post("/bussiness")
   bussiness(@Body() body: PromptDto) {
-    return this.chatBussinessUseCase.prompt(body);
+    return this.chatBussinessUseCase.execute(body);
   }
 }

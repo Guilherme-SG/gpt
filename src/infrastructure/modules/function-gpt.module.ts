@@ -1,13 +1,23 @@
 import { Module } from '@nestjs/common';
 import { ChatFunctionController } from '@controllers/gpt/chat-function.controller';
-import { ChatFunctionRandomNumber } from '@use-case/chat-function/chat-function-randomizer.use-case';
+import { CHAT_FUNCTION_USECASE } from '@constants/chat-function.constants';
+import { ChatFunctionGPTUseCase } from '@use-case/chat-function/chat-function-gpt.use-case.';
+import { PromptWithToolGPTService } from '@services/gpt/prompt/prompt-with-tool-gpt.service';
+import { CHAT_PROMPT_WITH_TOOL_SERVICE } from '@constants/gpt-service.constants';
 
 @Module({    
   controllers: [
     ChatFunctionController,
   ],
   providers: [
-    ChatFunctionRandomNumber,
+    {
+      provide: CHAT_FUNCTION_USECASE,
+      useClass: ChatFunctionGPTUseCase    
+    },
+    {
+      provide: CHAT_PROMPT_WITH_TOOL_SERVICE,
+      useClass: PromptWithToolGPTService
+    }
   ],
 })
 export class FunctionGTPModule {}

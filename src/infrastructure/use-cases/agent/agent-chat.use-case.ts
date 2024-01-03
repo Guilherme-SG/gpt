@@ -52,10 +52,10 @@ export class AgentChatUseCase implements UseCase {
   private async summarizeChats(output) {
     const toSummarizeMessage = ({ role, content }) => ({ role, content: content as string });
 
-    const heroSummarizedMessages = await this.chatSummarizerUseCase.summarize(
+    const heroSummarizedMessages = await this.chatSummarizerUseCase.execute(
       this.heroAgentService.getMessages().map(toSummarizeMessage),
     );
-    const villainSummarizerMessages = await this.chatSummarizerUseCase.summarize(
+    const villainSummarizerMessages = await this.chatSummarizerUseCase.execute(
       this.villainAgentService.getMessages().map(toSummarizeMessage),
     );
 

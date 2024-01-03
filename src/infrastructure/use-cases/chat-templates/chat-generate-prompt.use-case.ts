@@ -1,16 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { ChatTemplateGPTUseCase } from './chat-template-gpt.use-case';
+import { CHAT_PROMPT_SERVICE } from '@constants/gpt-service.constants';
+import { PromptDto } from '@core-types/prompt.dto';
+import { BasePromptGPTService } from '@interfaces/base-prompt-gpt.service.interface';
+import { UseCase } from '@interfaces/use-case.interface';
+import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ChatGeneratePromptUseCase extends ChatTemplateGPTUseCase {
+export class ChatGeneratePromptUseCase implements UseCase {
 
-    constructor(
-    ) {
-        super();
+    constructor(@Inject(CHAT_PROMPT_SERVICE) private readonly promptGPTService: BasePromptGPTService) {
+        this.setupTemplate();
     }
 
-    setupTemplate(): void {
-        this.pushSystemMessage({
+    private setupTemplate(): void {
+        this.promptGPTService.pushSystemMessage({
             role: "system",
             content: `
             Você é um especialista em Criação de Prompt.
@@ -43,5 +45,9 @@ export class ChatGeneratePromptUseCase extends ChatTemplateGPTUseCase {
             Sua primeira resposta deve ser apenas uma saudação e perguntar sobre o que o prompt deve ser.
             `
           })
+    }
+
+    execute(args: PromptDto) {
+        return this.promptGPTService.prompt(args);
     }
 }

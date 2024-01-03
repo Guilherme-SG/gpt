@@ -8,12 +8,18 @@ import { ChatShellUseCase } from '@use-case/chat-templates/chat-shell.use-case';
 import { ChatMidjourneyUseCase } from '@use-case/chat-templates/chat-midjourney.use-case';
 import { AudioService } from '@services/gpt/audio/audio.service';
 import { ChatBussinessUseCase } from '@use-case/chat-templates/chat-bussiness.use-case';
+import { CHAT_PROMPT_SERVICE } from '@constants/gpt-service.constants';
+import { PromptGPTService } from '@services/gpt/prompt/prompt-gpt.service';
 
 @Module({
   controllers: [
     ChatController,
   ],
   providers: [
+    {
+      provide: CHAT_PROMPT_SERVICE,
+      useClass: PromptGPTService,    
+    },
     ChatFreelanceProposalUseCase,
     ChatNestJSProgrammerUseCase,
     ChatShellUseCase,

@@ -1,20 +1,18 @@
-import { BasePromptGPTService } from "./base-prompt-gpt.service";
-import { ChatCompletionMessageParam, ChatCompletionTool, ChatCompletionToolChoiceOption } from "openai/resources";
-import { PromptResponse } from "src/core/types/prompt.dto";
+import { ChatCompletionTool, ChatCompletionToolChoiceOption } from "openai/resources";
+import { PromptResponse } from "@core-types/prompt.dto";
+import { PromptGPTService } from "./prompt-gpt.service";
+import { BasePromptWithToolGPTService } from "@interfaces/base-prompt-gpt.service.interface";
 
-export abstract class BasePromptWithToolGPTService extends BasePromptGPTService {
+export class PromptWithToolGPTService extends PromptGPTService implements BasePromptWithToolGPTService {
     protected maxTokens: number = 1000;
-    protected messages: ChatCompletionMessageParam[] = [];
     protected tools: Array<ChatCompletionTool> = [];
     protected toolChoice: ChatCompletionToolChoiceOption;
     protected toolFunctions: any = {};
 
-    constructor() {
-        super();
-        this.setTools();
+    public addTool(tool: ChatCompletionTool, functionReference: Function): void {
+        this.tools.push(tool);
+        this.toolFunctions[tool.function.name] = functionReference
     }
-
-    protected abstract setTools(): void;
     
     public async completeChat() {
         const completion = await this.openai.chat.completions.create({

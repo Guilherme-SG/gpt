@@ -1,16 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { ChatTemplateGPTUseCase } from './chat-template-gpt.use-case';
+import { CHAT_PROMPT_SERVICE } from '@constants/gpt-service.constants';
+import { PromptDto } from '@core-types/prompt.dto';
+import { BasePromptGPTService } from '@interfaces/base-prompt-gpt.service.interface';
+import { UseCase } from '@interfaces/use-case.interface';
+import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ChatFreelanceProposalUseCase extends ChatTemplateGPTUseCase {
+export class ChatFreelanceProposalUseCase implements UseCase {
 
-  constructor(
-  ) {
-    super();
-  }
+  constructor(@Inject(CHAT_PROMPT_SERVICE) private readonly promptGPTService: BasePromptGPTService) {
+    this.setupTemplate();
+}
 
-  setupTemplate(): void {
-    this.pushSystemMessage({
+  private setupTemplate(): void {
+    this.promptGPTService.pushSystemMessage({
       role: "system",
       content: `
             Você é um especialista em Criação de Proposta de Projeto.
@@ -49,7 +51,7 @@ export class ChatFreelanceProposalUseCase extends ChatTemplateGPTUseCase {
             `
     })
 
-    this.pushSystemMessage({
+    this.promptGPTService.pushSystemMessage({
       role: "system",
       content: `
               Use como referência as seguintes informações:
@@ -59,9 +61,13 @@ export class ChatFreelanceProposalUseCase extends ChatTemplateGPTUseCase {
             `
     })
 
-    this.pushSystemMessage({
+    this.promptGPTService.pushSystemMessage({
       role: "system",
       content: "Formate a sua resposta com HTML para que ele seja exibido igual ao ChatGPT."
     })
+  }
+
+  execute(args: PromptDto) {
+    return this.promptGPTService.prompt(args);
   }
 }

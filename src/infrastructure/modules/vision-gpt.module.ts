@@ -1,17 +1,25 @@
 import { Module } from '@nestjs/common';
 import { VisionController } from '@controllers/gpt/vision.controller';
-import { VisionStartService } from '@use-case/vision/vision-start.service.use-case';
 import { FileToBase64Service } from '@services/image-conversor/file-to-base64';
 import { PDFToBase64Service } from '@services/image-conversor/pdf-to-base64';
-import { VisionInvestAssessor } from '@use-case/vision/vision-invest-assessor.use-case';
+import { ChatVisionUseCase } from '@use-case/vision/chat-vision.use-case';
+import { ChatFileUseCase } from '@use-case/vision/chat-file.use-case';
+import { ChatPDFUseCase } from '@use-case/vision/chat-pdf.use-case';
+import { CHAT_VISION_PROMPT_SERVICE } from '@constants/gpt-service.constants';
+import { PromptVisionGPTService } from '@services/gpt/vision/prompt-vision.service';
 
 @Module({    
   controllers: [
     VisionController,
   ],
   providers: [
-    VisionStartService,
-    VisionInvestAssessor,
+    {
+      provide: CHAT_VISION_PROMPT_SERVICE,
+      useClass: PromptVisionGPTService
+    },
+    ChatVisionUseCase,
+    ChatFileUseCase,
+    ChatPDFUseCase,
     FileToBase64Service,
     PDFToBase64Service,
   ],

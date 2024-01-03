@@ -1,16 +1,18 @@
 import { PromptResponse } from "src/core/types/prompt.dto";
-import { Injectable } from "@nestjs/common";
-import { ChatTemplateGPTUseCase } from "./chat-template-gpt.use-case";
+import { Inject, Injectable } from "@nestjs/common";
+import { UseCase } from "@interfaces/use-case.interface";
+import { BasePromptGPTService } from "@interfaces/base-prompt-gpt.service.interface";
+import { CHAT_PROMPT_SERVICE } from "@constants/gpt-service.constants";
 
 @Injectable()
-export class ChatSummarizerUseCase extends ChatTemplateGPTUseCase {
-    constructor() {
-        super();
+export class ChatSummarizerUseCase implements UseCase {
+    constructor(@Inject(CHAT_PROMPT_SERVICE) private readonly promptGPTService: BasePromptGPTService) {
         this.setupTemplate();
-     }
+    }
+    
 
-    protected setupTemplate(): void {
-        this.pushSystemMessage({
+    private setupTemplate(): void {
+        this.promptGPTService.pushSystemMessage({
             role: "system",
             content: `You are a chat summarizer. 
                 Your job summarize all conversation between the Assistant and User, and gives both of them a short, concise text about the conversation.
@@ -30,14 +32,14 @@ export class ChatSummarizerUseCase extends ChatTemplateGPTUseCase {
         })
     }
 
-    async summarize(messages: { role: string, content: string }[] = []) {
+    public async execute(messages: { role: string, content: string }[] = []) {
         const conversation = this.joinMessages(messages)
-        const summarized = await this.prompt({ prompt: conversation, stream: false }) as PromptResponse;
+        const summarized = await this.promptGPTService.prompt({ prompt: conversation, stream: false }) as PromptResponse;
 
         return summarized.content
     }
 
-    joinMessages(messages: { role: string, content: string }[] = []) {
+    public joinMessages(messages: { role: string, content: string }[] = []) {
         return messages.reduce(
             (acc, curr) => `${acc}\n${curr.role}: ${curr.content}`,
             ""

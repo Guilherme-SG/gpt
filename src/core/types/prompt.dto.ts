@@ -6,7 +6,7 @@ export type PromptDto = {
 }
 
 export type VisionPromptDto = PromptDto & {
-    imageUrl: string;
+    imageUrls: string[];
 }
 
 export type PromptResponse = {
