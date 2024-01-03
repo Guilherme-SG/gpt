@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Scope } from '@nestjs/common';
 import { ChatController } from '@controllers/gpt/chat.controller';
 import { ChatGeneratePromptUseCase } from '@use-case/chat-templates/chat-generate-prompt.use-case';
 import { ChatSummarizerUseCase } from '../use-cases/chat-templates/chat-sumarizer.use-case';
@@ -18,7 +18,8 @@ import { PromptGPTService } from '@services/gpt/prompt/prompt-gpt.service';
   providers: [
     {
       provide: CHAT_PROMPT_SERVICE,
-      useClass: PromptGPTService,    
+      useClass: PromptGPTService,  
+      scope: Scope.TRANSIENT,
     },
     ChatFreelanceProposalUseCase,
     ChatNestJSProgrammerUseCase,
@@ -30,6 +31,7 @@ import { PromptGPTService } from '@services/gpt/prompt/prompt-gpt.service';
     AudioService
   ],
   exports: [
+    ChatShellUseCase,
     ChatSummarizerUseCase,
   ],
 })
