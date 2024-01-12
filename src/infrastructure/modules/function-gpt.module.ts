@@ -6,11 +6,11 @@ import { PromptWithToolGPTService } from '@services/gpt/prompt/prompt-with-tool-
 import { CHAT_PROMPT_WITH_TOOL_SERVICE } from '@constants/gpt-service.constants';
 import { FileCreatorUseCase } from '@use-case/chat-function/file-creator.use-case';
 import { OSExecuterService } from '@services/os/os-executer.service';
-import { ChatGTPModule } from './gpt.module';
+import { ChatGPTModule } from './gpt.module';
 
 @Module({
   imports: [
-    ChatGTPModule
+    ChatGPTModule
   ],
   controllers: [
     ChatFunctionController,

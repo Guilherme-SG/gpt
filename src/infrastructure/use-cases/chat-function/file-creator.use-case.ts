@@ -45,7 +45,6 @@ export class FileCreatorUseCase implements UseCase, OnModuleInit {
                 process.exit(0);
             }
 
-            this.chatShellUseCase.log()
             this.rl.write(`[Você]: ${answer}\n`);
             let processing = this.execute(answer);
             this.loadingEffect(processing);

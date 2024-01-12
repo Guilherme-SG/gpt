@@ -35,4 +35,4 @@ import { PromptGPTService } from '@services/gpt/prompt/prompt-gpt.service';
     ChatSummarizerUseCase,
   ],
 })
-export class ChatGTPModule {}
+export class ChatGPTModule {}
